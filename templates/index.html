@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogLens</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='dashboard.js') }}" defer></script>
+</head>
+
+<body>
+    <main class="container">
+        <nav class="navbar">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <span>LogLens</span>
+            </div>
+
+            <div class="nav-actions">
+                <button id="import-button" class="secondary-button">
+                    Process Sample Logs
+                </button>
+
+                <button
+                    id="theme-toggle"
+                    class="theme-toggle"
+                    aria-label="Switch light and dark mode"
+                >
+                    ◐
+                </button>
+            </div>
+        </nav>
+
+        <header class="page-header">
+            <p class="eyebrow">SYSLOG ANALYSIS AND INCIDENT DASHBOARD</p>
+            <h1>Log Overview</h1>
+            <p class="secondary-text">
+                Parse, classify, and review syslog-style events.
+            </p>
+        </header>
+
+        <section class="upload-card">
+            <div>
+                <p class="eyebrow">IMPORT LOG FILE</p>
+                <h2>Upload a syslog-style file</h2>
+                <p class="secondary-text">
+                    Supported formats: .log and .txt · Maximum size: 5 MB
+                </p>
+            </div>
+
+            <label id="upload-zone" class="upload-zone" for="log-file">
+                <strong>Choose or drop a log file</strong>
+                <span id="selected-file">No file selected</span>
+                <input
+                    id="log-file"
+                    type="file"
+                    accept=".log,.txt"
+                    hidden
+                >
+            </label>
+
+            <div class="upload-actions">
+                <button id="upload-button" class="primary-button" disabled>
+                    Process Uploaded File
+                </button>
+                <p id="upload-status" class="secondary-text"></p>
+            </div>
+        </section>
+
+        <section class="metric-grid">
+            <article class="metric-card">
+                <p class="secondary-text">Total Events</p>
+                <strong id="total-events">--</strong>
+                <span class="status-text">Imported log records</span>
+            </article>
+
+            <article class="metric-card">
+                <p class="secondary-text">Errors and Critical</p>
+                <strong id="critical-events">--</strong>
+                <span class="status-text critical">Needs attention</span>
+            </article>
+
+            <article class="metric-card">
+                <p class="secondary-text">Warnings</p>
+                <strong id="warning-events">--</strong>
+                <span class="status-text warning">Review recommended</span>
+            </article>
+
+            <article class="metric-card">
+                <p class="secondary-text">Failed Logins</p>
+                <strong id="failed-logins">--</strong>
+                <span class="status-text">Authentication events</span>
+            </article>
+        </section>
+
+        <section class="filters-card">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">LOG FILTERS</p>
+                    <h2>Find an event</h2>
+                </div>
+            </div>
+
+            <div class="filters">
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search message, service, or host"
+                >
+
+                <select id="severity-filter">
+                    <option value="">All severities</option>
+                    <option value="CRITICAL">Critical</option>
+                    <option value="ERROR">Error</option>
+                    <option value="WARNING">Warning</option>
+                    <option value="INFO">Info</option>
+                </select>
+
+                <select id="service-filter">
+                    <option value="">All services</option>
+                </select>
+
+                <select id="source-filter">
+                    <option value="">All sources</option>
+                </select>
+
+                <button id="filter-button" class="primary-button">
+                    Apply
+                </button>
+
+                <button id="clear-button" class="secondary-button">
+                    Clear
+                </button>
+            </div>
+        </section>
+
+        <section class="events-card">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">INCIDENT HISTORY</p>
+                    <h2>Parsed log events</h2>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Service</th>
+                            <th>Message</th>
+                            <th>Source</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="event-list">
+                        <tr>
+                            <td colspan="7">Loading log events…</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            LogLens · Built with Flask and SQLite
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Aug 14 09:10:03 server01 sshd[421]: Failed password for invalid user admin from 192.168.1.20
+Aug 14 09:12:45 server01 nginx[610]: ERROR connection timeout while reading response header
+Aug 14 09:15:21 server01 systemd[1]: Started backup.service
+Aug 14 09:18:12 server01 app[777]: WARNING memory usage above 80 percent
+Aug 14 09:20:50 server01 kernel[0]: Disk full on /var
+Aug 14 09:23:08 server01 sshd[462]: Accepted password for operator from 192.168.1.25
+Aug 14 09:25:31 server01 api[910]: ERROR unable to connect to database
+Aug 14 09:28:45 server01 systemd[1]: backup.service failed with result exit-code
+Aug 14 09:30:17 server01 nginx[610]: Started worker process 615
+Aug 14 09:33:02 server01 sshd[511]: Failed password for root from 192.168.1.31
